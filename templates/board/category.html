@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2 class="text-center mt-2">{{ category.name }}</h2>
+
+{% if posts_in_category %}
+<div class="container my-3">
+    <div class="row row-cols-1 row-cols-md-2 g-3">
+        {% for obj in posts_in_category %}
+        <div class="col">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">{{ obj.title }}</h5>
+                    <a class="stretched-link" href="{% url 'post' obj.slug %}"></a>
+                    <p class="card-text">{{ obj.text|truncatechars:20 }}</p>
+                </div>
+                <small class="text-body-secondary text-muted mx-3">{{ obj.date|date:'d.m.Y' }}</small>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<!--- Пагинация  --->
+{% include "pagination.html" %}
+{% else %}
+<h2 class="text-center">Объявлений нет</h2>
+{% endif %}
+
+{% endblock content %}

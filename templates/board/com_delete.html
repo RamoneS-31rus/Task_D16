@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div>
+    <hr>
+    <h2>Действительно удалить?</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <hr>
+        <button class="button_del" type="submit">Да</button>
+        <a class="button_cancel" href="{% url 'comments_rejected' %}" role="button">Нет</a>
+    </form>
+</div>
+
+{% endblock %}

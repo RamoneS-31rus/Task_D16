@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if object_list %}
+<div class="container my-3">
+    <div class="row row-cols-1 row-cols-md-2 g-3">
+        {% for obj in object_list %}
+        <div class="col">
+            <div class="card">
+                <div class="row align-items-center mx-2 my-4">
+                    <div class="col">
+                        <h5 class="">{{ obj.name }}</h5>
+                        <a class="stretched-link" href="{% url 'posts_in_category' obj.slug %}"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% else %}
+<h4 class="text-center mt-3">Категорий нет</h4>
+{% endif %}
+
+{% endblock content %}

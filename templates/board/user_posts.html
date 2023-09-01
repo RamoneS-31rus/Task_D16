@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if user_posts %}
+<div class="container my-3">
+    <h4 class="text-center mt-3">Всего объявлений: {{ user_posts.count }}</h4>
+    <hr>
+    <div class="row row-cols-1 row-cols-md-2 g-3">
+        {% for obj in user_posts %}
+        <div class="col">
+            <div class="card h-100">
+                <div class="card-header">{{ obj.category}}</div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ obj.title }}</h5>
+                    <a class="stretched-link" href="{% url 'post' obj.slug %}"></a>
+                    <p class="card-text">{{ obj.text|truncatechars:20 }}</p>
+                </div>
+                <small class="text-body-secondary text-muted mx-3">{{ obj.date|date:'d.m.Y' }}</small>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<!--- Пагинация  --->
+{% include "pagination.html" %}
+{% else %}
+<h1 class="text-center mt-3">Объявлений нет</h1>
+{% endif %}
+
+{% endblock content %}

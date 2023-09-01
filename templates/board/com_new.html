@@ -1,0 +1,70 @@
+{%extends 'base.html' %}
+
+{% block content %}
+
+<div class="container my-2 px-4 position-relative">
+    <div class="card">
+        <div class="card-header p-2">
+            <div class="row justify-content-between align-items-center">
+                <div class="col-auto mx-auto">
+                    <form method="GET">
+                        <div class="input-group">
+                            {{ is_new.form }}
+                            <button class="input-group-text text-secondary bg-white" type="submit"><i
+                                    class="bi bi-search"></i></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex flex-row">
+            <div class="w-100">
+                <div class="card m-1">
+                    <!-- Шапка с навигацией --->
+                    <div class="card-header">
+                        <ul class="nav nav-tabs card-header-tabs">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="{% url 'comments_new' %}">Новые</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'comments_accepted' %}">Принятые</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'comments_rejected' %}">Отклонённые</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- Комментарии -->
+                    <div class="card-body pb-1">
+                        <div class="card-body py-1 lh-sm">
+                            {% for comment in is_new.qs %}
+                            <div class="card mb-1 bg-light">
+                                <a class="nav-link" href="{% url 'post' comment.post.slug %}">{{ comment.post }}</a>
+                                <p class="small fw-bold m-2">{{ comment.user }}<span
+                                        class="text-secondary small px-2">{{comment.date|date:'d.m.Y H:i' }}</span></p>
+                                <p class="card-text m-1">{{ comment.text|linebreaks }}</p>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-auto">
+                                    <form action="{% url 'comment_accept' comment.pk %}" method="POST">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-sm btn-success px-3">Принять</button>
+                                    </form>
+                                </div>
+                                <div class="col-auto">
+                                    <form action="{% url 'comment_reject' comment.pk %}" method="POST">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-sm btn-danger px-3">Отклонить</button>
+                                    </form>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

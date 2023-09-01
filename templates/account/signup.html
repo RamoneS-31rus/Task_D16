@@ -1,0 +1,18 @@
+{% extends "main.html" %}
+
+{% block content %}
+
+<div class="login-page">
+  <div class="form">
+    <form method="POST" action="{% url 'account_signup' %}">
+      {% csrf_token %}
+      <input type="text" name="email" placeholder="Email"/>
+      <input type="password" name="password1" placeholder="Пароль"/>
+      <input type="password" name="password2" placeholder="Повторите пароль"/>
+      <button>Продолжить</button>
+      <p><a href="{% url 'account_login' %}">Авторизация</a></p>
+    </form>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,5 @@
+{% autoescape off %}
+{% with site_name=current_site.name %}Вас приветствует {{ site_name }}!{% endwith %}
+{% block content %}{% endblock %}
+{% with site_name=current_site.name %}Спасибо, что используете {{ site_name }}!{% endwith %}
+{% endautoescape %}

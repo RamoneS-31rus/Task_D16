@@ -1,0 +1,10 @@
+{% extends "account/email/base_message.txt" %}
+{% load account %}
+{% block content %}
+{% autoescape off %}
+    {% with site_name=current_site.name %}Вы получили это письмо, потому что Ваш адрес электронной почты использовался для регистрации учетной записи на {{ site_name }}.
+
+    Для завершения регистрации перейдите по ссылке {{ activate_url }}
+    {% endwith %}
+{% endautoescape %}
+{% endblock %}
